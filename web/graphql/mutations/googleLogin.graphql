@@ -1,0 +1,9 @@
+mutation GoogleLogin($username: String, $email: String, $password: String!) {
+  googleLogin(username: $username, email: $email, password: $password) {
+    token
+    errors {
+      field
+      message
+    }
+  }
+}
