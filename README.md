@@ -1,11 +1,19 @@
-#GraqphQL NextJs Auth Boilerplate
+
+# GraqphQL NextJs Auth Boilerplate
 <img src="https://raw.githubusercontent.com/DanielPereod/GraqphQlNextJsAuthBoilerplate/master/md/logo.svg" width="200">
 
-[TOC]
+ - [Packages and documentation](#packages-and-documentation)
+	 - [Server dependencies](#server-dependencies)
+	 - [Web dependencies](#web-dependencies)
+ - [Setting Up](#setting-up)
+	 - [Initial setup](#initial-setup)
+	 - [.Env files structure](#.env-files-structure)
+		 - [Server .env file](#server-.env-file)
+		 -  [Web .env.local file](#web-.env.local-file)
 
-#Packages and documentation.
+# Packages and documentation
 
-##Server dependencies
+## Server dependencies
 | Package Name | Description |
 |-|-|
 | [express](https://expressjs.com/es/ "express") | Required for integration with Apollo Server |
@@ -23,7 +31,7 @@
 | [pg](https://github.com/brianc/node-postgres "pg") | Required for typeorm |
 | [uuid](https://github.com/uuidjs/uuid "uuid") | For the creation of RFC4122 UUIDs |
 
-##Web dependencies
+## Web dependencies
 | Package Name | Description |
 |-|-|
 | [chakra-ui ](https://chakra-ui.com/docs/ "chakra-ui ")| Component library |
@@ -41,10 +49,10 @@
 | [urql](https://formidable.com/open-source/urql/docs/ "urql") | GraphQL client |
 
 
-#Setting Up
-##Initial setup
+# Setting Up
+## Initial setup
 Run `npm install ` or `yarn` to install all dependecies.
-##.Env files structure
+## .Env files structure
 ### Server .env file
 >This .env file must be stored in the root of the server folder.
 
@@ -64,4 +72,3 @@ Run `npm install ` or `yarn` to install all dependecies.
 | Name | Value |
 |-|-|
 | NEXT_PUBLIC_GOOGLE_CLIENT_ID |[ Google ID ](https://developers.google.com/identity/one-tap/web/guides/get-google-api-clientid " Google ID ")
-
