@@ -1,8 +1,8 @@
 import argon2 from "argon2";
-import { GraphQLObjectType } from "graphql";
-import jwt, { verify } from "jsonwebtoken";
+import { verify } from "jsonwebtoken";
 import { Arg, Args, Ctx, Mutation, Query, Resolver } from "type-graphql";
 import { getRepository } from "typeorm";
+import { v4 as uuidv4 } from "uuid";
 import { MyContext } from "../../types/MyContext";
 import {
   createAccessToken,
@@ -11,15 +11,37 @@ import {
 } from "../../utils/auth";
 import User from "../entities/User";
 import {
-  GoogleResponse,
   TokenResponse,
   UsernameEmailPassword,
   UserToken,
+  UserResponse,
 } from "../types/user-types";
-import { v4 as uuidv4 } from "uuid";
 
 @Resolver(User)
 export default class UserResolver {
+  @Query(() => UserResponse)
+  async me(@Ctx() { req, res }: MyContext): Promise<UserResponse> {
+    const token = req.cookies.jid;
+    if (!token) {
+      return { errors: [{ field: "token", message: "not found" }] };
+    }
+    const payload = verify(token, process.env.REFRESH_TOKEN_SECRET);
+
+    if (!payload) {
+      return { errors: [{ field: "token", message: "not valid" }] };
+    }
+
+    const user = await User.findOne(payload["userId"]);
+
+    if (!user) {
+      return { errors: [{ field: "user", message: "not found" }] };
+    }
+
+    return {
+      user,
+    };
+  }
+
   @Query(() => TokenResponse)
   async refreshToken(@Ctx() { req, res }: MyContext): Promise<TokenResponse> {
     const token = req.cookies.jid;

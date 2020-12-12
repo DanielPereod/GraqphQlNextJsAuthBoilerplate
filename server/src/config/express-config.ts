@@ -11,8 +11,19 @@ import {
 
 export const expressApp = () => {
   const app = express();
-  app.use(cors());
+  app.use(
+    cors({
+      credentials: true,
+      origin: "http://localhost:3000",
+    })
+  );
   app.use(cookieParser());
+
+  app.listen({ port: process.env.SERVER_PORT }, () =>
+    console.log(
+      `Server ready at http://localhost:${process.env.SERVER_PORT}/graphql`
+    )
+  );
 
   /* app.post("/refresh-token", async (req, res) => {
     const token = req.cookies.jid;
@@ -40,12 +51,6 @@ export const expressApp = () => {
 
     return res.send({ ok: true, accessToken: createAccessToken(user) });
   }); */
-
-  app.listen({ port: process.env.SERVER_PORT }, () =>
-    console.log(
-      `Server ready at http://localhost:${process.env.SERVER_PORT}/graphql`
-    )
-  );
 
   return app;
 };

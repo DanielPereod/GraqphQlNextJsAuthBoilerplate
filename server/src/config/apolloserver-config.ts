@@ -10,5 +10,5 @@ export const apolloServer = async (app) => {
     }),
     context: ({ req, res }) => ({ req, res }),
   });
-  server.applyMiddleware({ app });
+  server.applyMiddleware({ app, cors: false });
 };
