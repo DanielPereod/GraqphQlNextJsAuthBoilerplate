@@ -1,11 +1,10 @@
-import {
-  cacheExchange,
-  createClient,
-  dedupExchange,
-  fetchExchange,
-} from "urql";
+import { cacheExchange } from "@urql/exchange-graphcache";
+import { dedupExchange, fetchExchange } from "urql";
 
 export const clientOptions = (ssrExchange: any) => ({
-  url: "http://localhost:4000/graphql",
+  url: process.env.NEXT_PUBLIC_SERVER_URL,
+  fetchOptions: {
+    credentials: "include" as const,
+  },
   exhanges: [dedupExchange, cacheExchange, ssrExchange, fetchExchange],
 });

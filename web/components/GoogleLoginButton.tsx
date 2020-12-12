@@ -1,4 +1,5 @@
 import { Button } from "@chakra-ui/react";
+import { useRouter } from "next/router";
 import React from "react";
 import { useEffect } from "react";
 import GoogleLogin from "react-google-login";
@@ -12,14 +13,16 @@ interface Props {}
 
 export const GoogleLoginButton = (props: Props) => {
   const [{ fetching }, googleLogin] = useGoogleLoginMutation();
+  const router = useRouter();
 
   const responseGoogle = async (response) => {
     try {
-      return await googleLogin({
+      await googleLogin({
         email: response.profileObj.email,
         username: response.profileObj.givenName,
         password: "googleAuth",
       });
+      return router.push("/");
     } catch (error) {
       return error;
     }
