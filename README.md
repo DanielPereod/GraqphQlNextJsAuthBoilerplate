@@ -1,4 +1,5 @@
 
+
 # GraqphQL NextJs Auth Boilerplate
 <img src="https://raw.githubusercontent.com/DanielPereod/GraqphQlNextJsAuthBoilerplate/master/md/logo.svg" width="200">
 
@@ -41,12 +42,11 @@
 | [framer-motion](https://www.framer.com/motion/ "framer-motion") | ChakraUI dependency |
 | [graphql](https://graphql.org/ "graphql") | GraphQL dependency |
 | [next](https://nextjs.org/ "next") | React Ssr framework  |
-| [next-urql](https://formidable.com/open-source/urql/docs/advanced/server-side-rendering/ "next-urql") | Ssr URQL |
 | [react ](https://es.reactjs.org/ "react ")| React dependency  |
 | [react-dom](https://es.reactjs.org/ "react-dom") | React dependency |
 |[ react-google-login](https://github.com/anthonyjgrove/react-google-login " react-google-login") | Google Login Button for React |
 | [react-is](https://es.reactjs.org/ "react-is") | React dependency |
-| [urql](https://formidable.com/open-source/urql/docs/ "urql") | GraphQL client |
+| [Apollo Client](https://www.apollographql.com/docs/react/ "Apollo Client") | GraphQL client |
 
 
 # Setting Up
@@ -71,4 +71,5 @@ Run `npm install ` or `yarn` to install all dependecies.
 
 | Name | Value |
 |-|-|
-| NEXT_PUBLIC_GOOGLE_CLIENT_ID |[ Google ID ](https://developers.google.com/identity/one-tap/web/guides/get-google-api-clientid " Google ID ")
+| NEXT_PUBLIC_GOOGLE_CLIENT_ID |[ Google ID ](https://developers.google.com/identity/one-tap/web/guides/get-google-api-clientid " Google ID ") |
+| NEXT_PUBLIC_SERVER_URL | Server URL |
