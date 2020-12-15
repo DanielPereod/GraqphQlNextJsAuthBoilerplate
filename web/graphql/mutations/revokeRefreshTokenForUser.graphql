@@ -1,0 +1,3 @@
+mutation RevokeRefreshTokenForUser($userId: String!) {
+  revokeRefreshTokenForUser(userId: $userId)
+}

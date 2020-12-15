@@ -153,6 +153,16 @@ export type RegisterMutation = (
   ) }
 );
 
+export type RevokeRefreshTokenForUserMutationVariables = Exact<{
+  userId: Scalars['String'];
+}>;
+
+
+export type RevokeRefreshTokenForUserMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'revokeRefreshTokenForUser'>
+);
+
 export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -215,6 +225,15 @@ export const RegisterDocument = gql`
 
 export function useRegisterMutation() {
   return Urql.useMutation<RegisterMutation, RegisterMutationVariables>(RegisterDocument);
+};
+export const RevokeRefreshTokenForUserDocument = gql`
+    mutation RevokeRefreshTokenForUser($userId: String!) {
+  revokeRefreshTokenForUser(userId: $userId)
+}
+    `;
+
+export function useRevokeRefreshTokenForUserMutation() {
+  return Urql.useMutation<RevokeRefreshTokenForUserMutation, RevokeRefreshTokenForUserMutationVariables>(RevokeRefreshTokenForUserDocument);
 };
 export const MeDocument = gql`
     query me {

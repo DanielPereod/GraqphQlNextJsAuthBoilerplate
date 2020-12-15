@@ -71,8 +71,17 @@ export default class UserResolver {
   }
 
   @Mutation(() => Boolean)
-  async revokeRefreshTokenForUser(@Arg("userId", () => String) userId: string) {
-    await getRepository(User).increment({ id: userId }, "tokenVersion", 1);
+  async revokeRefreshTokenForUser(
+    @Arg("userId", () => String) userId: string,
+    @Ctx() { res, req }: MyContext
+  ): Promise<Boolean> {
+    try {
+      await getRepository(User).increment({ id: userId }, "tokenVersion", 1);
+      res.clearCookie("jid");
+      return true;
+    } catch (error) {
+      return false;
+    }
   }
 
   @Mutation(() => UserToken)
