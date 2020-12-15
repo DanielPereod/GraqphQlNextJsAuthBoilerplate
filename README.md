@@ -71,4 +71,5 @@ Run `npm install ` or `yarn` to install all dependecies.
 
 | Name | Value |
 |-|-|
-| NEXT_PUBLIC_GOOGLE_CLIENT_ID |[ Google ID ](https://developers.google.com/identity/one-tap/web/guides/get-google-api-clientid " Google ID ")
+| NEXT_PUBLIC_GOOGLE_CLIENT_ID |[ Google ID ](https://developers.google.com/identity/one-tap/web/guides/get-google-api-clientid " Google ID ") |
+| NEXT_PUBLIC_SERVER_URL | Server URL |
