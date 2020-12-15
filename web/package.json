@@ -9,11 +9,11 @@
     "gen": "graphql-codegen --config codegen.yml"
   },
   "dependencies": {
+    "@apollo/client": "^3.2.9",
     "@chakra-ui/icons": "^1.0.1",
     "@chakra-ui/react": "^1.0.1",
     "@emotion/react": "^11.1.1",
     "@emotion/styled": "^11.0.0",
-    "@urql/exchange-graphcache": "^3.3.3",
     "cookie-cutter": "^0.2.0",
     "formik": "^2.2.5",
     "framer-motion": "^2.9.4",
@@ -21,12 +21,10 @@
     "graphql-tag": "^2.11.0",
     "memory-cache": "^0.2.0",
     "next": "^10.0.3",
-    "next-urql": "^2.1.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-google-login": "^5.1.25",
-    "react-is": "^17.0.1",
-    "urql": "^1.11.3"
+    "react-is": "^17.0.1"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "1.19.3",
@@ -34,10 +32,10 @@
     "@graphql-codegen/typescript": "1.18.1",
     "@graphql-codegen/typescript-operations": "1.17.12",
     "@graphql-codegen/typescript-react-apollo": "2.2.1",
-    "@graphql-codegen/typescript-urql": "^2.0.3",
     "@types/memory-cache": "^0.2.1",
     "@types/node": "^14.14.10",
     "@types/react": "^17.0.0",
+    "graphql-codegen-apollo-next-ssr": "^1.2.1",
     "typescript": "^4.1.2"
   }
 }

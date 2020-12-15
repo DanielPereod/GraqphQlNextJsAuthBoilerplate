@@ -2,33 +2,38 @@ import React, { useEffect } from "react";
 import Cookies from "js-cookie";
 import {
   useMeQuery,
+  MeDocument,
   useRevokeRefreshTokenForUserMutation,
 } from "../../graphql/generated";
 import { isServer } from "../../utils/isServer";
-import { Flex, Box, Button, Link } from "@chakra-ui/react";
-import cache from "memory-cache";
+import { Flex, Box, Button, Link, useColorMode, Icon } from "@chakra-ui/react";
+import { SunIcon, MoonIcon } from "@chakra-ui/icons";
+import { client } from "../../utils/createApolloClient";
 
 interface Props {}
 
 export const Navbar = (props: Props) => {
-  const [{ data }] = useMeQuery({
-    pause: isServer(),
+  const { colorMode, toggleColorMode } = useColorMode();
+  const { loading: meLoading, error: meError, data: meData } = useMeQuery({
+    skip: isServer(),
+    fetchPolicy: "cache-first",
   });
   const [
-    { fetching },
     revokeRefreshTokenForUser,
+    { loading: revokeTokenLoading },
   ] = useRevokeRefreshTokenForUserMutation();
 
   const logout = async () => {
+    client.writeQuery({
+      query: MeDocument,
+      data: {
+        me: null,
+      },
+    });
     try {
-      await revokeRefreshTokenForUser(
-        {
-          userId: data?.me?.user?.id,
-        },
-        {
-          additionalTypenames: ["star"],
-        }
-      );
+      await revokeRefreshTokenForUser({
+        variables: { userId: meData?.me?.user?.id },
+      });
     } catch (error) {
       console.log(error);
     }
@@ -36,9 +41,14 @@ export const Navbar = (props: Props) => {
 
   const isLogged = (
     <Flex align="center" fontWeight="semibold">
-      <Box mr={3}>{data?.me?.user?.username}</Box>
+      <Box mr={3}>{meData?.me?.user?.username}</Box>
       <Box>
-        <Button isLoading={fetching} onClick={() => logout()}>
+        <Button
+          isLoading={revokeTokenLoading}
+          onClick={() => {
+            logout();
+          }}
+        >
           Log out
         </Button>
       </Box>
@@ -46,19 +56,33 @@ export const Navbar = (props: Props) => {
   );
 
   const isNotLogged = (
-    <Box>
-      <Link href="/auth/login">Login</Link>
-      <Link href="/auth/register">Register</Link>
-    </Box>
+    <Flex>
+      <Box mr={3}>
+        <Link href="/auth/login">Login</Link>
+      </Box>
+      <Box>
+        <Link href="/auth/register">Register</Link>
+      </Box>
+    </Flex>
   );
 
   return (
-    <Flex justifyContent="flex-end" m={3}>
-      {/* {console.log(data)} */}
-      {!data?.me.user ? isNotLogged : isLogged}
-      {/*       <Button ml={3} onClick={toggleColorMode}>
-        {colorMode === "light" ? <Icon name="sun" /> : <Icon name="moon" />}
-      </Button> */}
-    </Flex>
+    <header>
+      <Flex
+        justifyContent="flex-end"
+        alignItems="center"
+        m={2}
+        lineHeight="2em"
+      >
+        {!meData?.me?.user ? isNotLogged : isLogged}
+        <Button
+          lineHeight="2em"
+          variant="transparent"
+          onClick={toggleColorMode}
+        >
+          {colorMode === "light" ? <SunIcon /> : <MoonIcon />}
+        </Button>
+      </Flex>
+    </header>
   );
 };

@@ -5,14 +5,18 @@ import React from "react";
 import "../styles/globals.css";
 import { Global } from "@emotion/react";
 import fontFace from "../styles/font-face";
+import { ApolloProvider } from "@apollo/client";
+import { client } from "../utils/createApolloClient";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <ChakraProvider theme={theme}>
-      <CSSReset />
-      <Global styles={fontFace} />
-      <Component {...pageProps} />
-    </ChakraProvider>
+    <ApolloProvider client={client}>
+      <ChakraProvider theme={theme}>
+        <CSSReset />
+        <Global styles={fontFace} />
+        <Component {...pageProps} />
+      </ChakraProvider>
+    </ApolloProvider>
   );
 }
 

@@ -9,13 +9,16 @@ import { validatePassword } from "../../components/validations/validateUsername"
 import { useLoginMutation } from "../../graphql/generated";
 import { clientOptions } from "../../utils/createClient";
 
-interface RegisterValues {
+interface LoginValues {
   usernameOrEmail: string;
   password: string;
 }
 
 const Login = () => {
-  const [{ fetching }, login] = useLoginMutation();
+  const [
+    login,
+    { loading: loginLoading, error: loginError },
+  ] = useLoginMutation();
   const router = useRouter();
 
   return (
@@ -25,14 +28,16 @@ const Login = () => {
         password: "",
       }}
       onSubmit={async (
-        values: RegisterValues,
-        { setSubmitting }: FormikHelpers<RegisterValues>
+        values: LoginValues,
+        { setSubmitting }: FormikHelpers<LoginValues>
       ) => {
         try {
           await login({
-            username: values.usernameOrEmail,
-            email: values.usernameOrEmail,
-            password: values.password,
+            variables: {
+              username: values.usernameOrEmail,
+              email: values.usernameOrEmail,
+              password: values.password,
+            },
           });
           router.push("/");
         } catch (error) {
@@ -82,4 +87,4 @@ const Login = () => {
   );
 };
 
-export default withUrqlClient(clientOptions, { ssr: false })(Login);
+export default Login;

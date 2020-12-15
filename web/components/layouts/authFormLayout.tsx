@@ -1,4 +1,11 @@
-import { Box, Flex, Heading, Link, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  Heading,
+  Link,
+  Text,
+  useColorModeValue,
+} from "@chakra-ui/react";
 import React from "react";
 import { GoogleLoginButton } from "../GoogleLoginButton";
 
@@ -9,6 +16,7 @@ interface Props {
 }
 
 export const AuthFormLayout = ({ title, children, type }: Props) => {
+  const bg = useColorModeValue("#fff", "#1a202c");
   return (
     <Flex
       w="100%"
@@ -38,7 +46,7 @@ export const AuthFormLayout = ({ title, children, type }: Props) => {
         h="90vh"
         minH="770px"
         w={["90%", "90%", "90%", "50%", "40%"]}
-        bgColor="#ffffff"
+        bgColor={bg}
         zIndex={1}
         justifyContent="center"
         alignItems="center"

@@ -12,15 +12,17 @@ import { GoogleIcon } from "../styles/icons";
 interface Props {}
 
 export const GoogleLoginButton = (props: Props) => {
-  const [{ fetching }, googleLogin] = useGoogleLoginMutation();
+  const [googleLogin, { loading: googleLoading }] = useGoogleLoginMutation();
   const router = useRouter();
 
   const responseGoogle = async (response) => {
     try {
       await googleLogin({
-        email: response.profileObj.email,
-        username: response.profileObj.givenName,
-        password: "googleAuth",
+        variables: {
+          email: response.profileObj.email,
+          username: response.profileObj.givenName,
+          password: "googleAuth",
+        },
       });
       return router.push("/");
     } catch (error) {

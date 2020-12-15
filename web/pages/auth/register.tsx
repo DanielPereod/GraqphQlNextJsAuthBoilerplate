@@ -22,7 +22,10 @@ interface RegisterValues {
 }
 
 const Register = () => {
-  const [{ fetching }, register] = useRegisterMutation();
+  const [
+    register,
+    { loading: registerLoading, error: registerError },
+  ] = useRegisterMutation();
   const router = useRouter();
   const sendData = () => {};
   return (
@@ -39,9 +42,11 @@ const Register = () => {
       ) => {
         try {
           await register({
-            username: values.username,
-            email: values.email,
-            password: values.password,
+            variables: {
+              username: values.username,
+              email: values.email,
+              password: values.password,
+            },
           });
           router.push("/");
         } catch (error) {
@@ -105,4 +110,4 @@ const Register = () => {
   );
 };
 
-export default withUrqlClient(clientOptions, { ssr: false })(Register);
+export default Register;

@@ -11,4 +11,4 @@ function Home() {
     </Box>
   );
 }
-export default withUrqlClient(clientOptions, { ssr: true })(Home);
+export default Home;
