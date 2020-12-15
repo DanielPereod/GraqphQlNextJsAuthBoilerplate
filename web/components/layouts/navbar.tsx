@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import Cookies from "js-cookie";
 import {
   useMeQuery,
   MeDocument,
@@ -22,6 +21,10 @@ export const Navbar = (props: Props) => {
     revokeRefreshTokenForUser,
     { loading: revokeTokenLoading },
   ] = useRevokeRefreshTokenForUserMutation();
+
+  if (meLoading) {
+    return <></>;
+  }
 
   const logout = async () => {
     client.writeQuery({
@@ -68,6 +71,7 @@ export const Navbar = (props: Props) => {
 
   return (
     <header>
+      {console.log(client.cache)}
       <Flex
         justifyContent="flex-end"
         alignItems="center"

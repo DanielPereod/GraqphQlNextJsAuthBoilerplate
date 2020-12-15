@@ -6,7 +6,11 @@ import {
   Text,
   useColorModeValue,
 } from "@chakra-ui/react";
+import { useRouter } from "next/router";
 import React from "react";
+import { useMeQuery } from "../../graphql/generated";
+import { client } from "../../utils/createApolloClient";
+import { isServer } from "../../utils/isServer";
 import { GoogleLoginButton } from "../GoogleLoginButton";
 
 interface Props {
@@ -17,6 +21,16 @@ interface Props {
 
 export const AuthFormLayout = ({ title, children, type }: Props) => {
   const bg = useColorModeValue("#fff", "#1a202c");
+  const router = useRouter();
+  const { loading: meLoading, error: meError, data: meData } = useMeQuery({
+    skip: isServer(),
+    fetchPolicy: "no-cache",
+  });
+
+  if (meData?.me?.user) {
+    router.push("/");
+    return <></>;
+  }
   return (
     <Flex
       w="100%"
